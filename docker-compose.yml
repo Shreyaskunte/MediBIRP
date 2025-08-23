@@ -1,0 +1,18 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: medi-sqlserver
+    environment:
+      SA_PASSWORD: "StrongPassword!123"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+
+  userservice:
+    build:
+      context: .
+      dockerfile: ./src/Services/UserService/Dockerfile
+    ports:
+      - "5001:80"
+    depends_on:
+      - sqlserver
