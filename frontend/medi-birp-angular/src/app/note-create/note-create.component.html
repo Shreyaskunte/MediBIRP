@@ -1,0 +1,12 @@
+<div class="container mt-3">
+  <h3>Create BIRP Note</h3>
+  <form (ngSubmit)="submit()">
+    <div class="mb-2">
+      <input [(ngModel)]="patientId" name="patientId" class="form-control" placeholder="Patient ID" />
+    </div>
+    <div class="mb-2">
+      <textarea [(ngModel)]="rawText" name="rawText" rows="8" class="form-control" placeholder="BIRP note raw text..."></textarea>
+    </div>
+    <button class="btn btn-primary" [disabled]="submitting">Submit</button>
+  </form>
+</div>

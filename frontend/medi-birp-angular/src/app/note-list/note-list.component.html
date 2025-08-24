@@ -1,0 +1,25 @@
+<div class="container mt-3">
+  <h3>Notes</h3>
+  <button class="btn btn-sm btn-outline-secondary mb-2" (click)="load()">Refresh</button>
+
+  <div *ngIf="loading">Loading...</div>
+
+  <table class="table table-striped" *ngIf="notes.length">
+    <thead>
+      <tr>
+        <th>ID</th><th>Patient</th><th>Clinician</th><th>Created</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let n of notes">
+        <td>{{ n.id }}</td>
+        <td>{{ n.patientId }}</td>
+        <td>{{ n.clinicianId }}</td>
+        <td>{{ n.createdAt | date:'short' }}</td>
+        <td><button class="btn btn-sm btn-primary" (click)="exportPdf(n)">Export PDF</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!notes.length && !loading" class="text-muted">No notes yet.</div>
+</div>
