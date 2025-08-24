@@ -1,0 +1,21 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/users/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{ "Host": "userservice", "Port": 80 }],
+      "UpstreamPathTemplate": "/users/{everything}",
+      "UpstreamHttpMethod": ["POST","GET"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/notes/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{ "Host": "noteservice", "Port": 80 }],
+      "UpstreamPathTemplate": "/notes/{everything}",
+      "UpstreamHttpMethod": ["POST","GET"]
+    }
+  ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "RequestId"
+  }
+}
