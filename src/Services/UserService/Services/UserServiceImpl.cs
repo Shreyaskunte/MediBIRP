@@ -22,6 +22,7 @@ namespace UserService.Services
             _db.Users.Add(user);
             await _db.SaveChangesAsync();
             return user;
+
         }
 
         public async Task<User?> AuthenticateAsync(string email, string password)
