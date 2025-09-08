@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=password123
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  userservice:
+    build: ./src/Services/UserService
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=UserDb;User Id=sa;Password=password123;TrustServerCertificate=True
+    depends_on:
+      - sqlserver
+    ports:
+      - "5001:80"
+
+volumes:
+  sql_data:

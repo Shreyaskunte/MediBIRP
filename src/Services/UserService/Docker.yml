@@ -1,0 +1,21 @@
+# Use the official ASP.NET Core runtime as base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 80
+
+# Build stage
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+COPY . .
+RUN dotnet restore "UserService.csproj"
+RUN dotnet build "UserService.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "UserService.csproj" -c Release -o /app/publish
+
+# Final stage
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "UserService.dll"]
+# Set environment variable for ASP.NET Core

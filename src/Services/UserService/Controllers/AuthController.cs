@@ -6,6 +6,7 @@ using System.Text;
 using UserService.Models;
 using UserService.Services;
 using Shared.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UserService.Controllers
 {
@@ -13,9 +14,10 @@ namespace UserService.Controllers
     {
         private readonly IUserService _svc;
         private readonly ITokenService _tokenService;
-        public AuthController(IUserService svc)
+        public AuthController(IUserService svc, ITokenService tokenService)
         {
             _svc = svc;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
@@ -32,6 +34,7 @@ namespace UserService.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
